@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+}
+
+group 'org.fasttrackit'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    cucumberVersion = '4.0.1'
+    restAssuredVersion = '4.0.0'
+    lombokVersion = '1.18.2'
+    springVersion = '4.3.10.RELEASE'
+    jsonVersion = '20180130'
+}
+
+dependencies {
+
+    testCompile group: 'io.rest-assured', name: 'rest-assured', version:"${restAssuredVersion}"
+    testCompile group: 'io.rest-assured', name: 'json-path', version:"${restAssuredVersion}"
+    testCompile group: 'io.rest-assured', name: 'xml-path', version:"${restAssuredVersion}"
+
+    testCompile group: 'io.cucumber', name: 'cucumber-junit', version:"${cucumberVersion}"
+    testCompile group: 'io.cucumber', name: 'cucumber-java8', version:"${cucumberVersion}"
+    testCompile group: 'io.cucumber', name: 'cucumber-jvm', version:"${cucumberVersion}"
+    testCompile group: 'io.cucumber', name: 'cucumber-spring', version:"${cucumberVersion}"
+
+    testCompile("org.springframework:spring-tx:${springVersion}")
+    testCompile("org.springframework:spring-context-support:${springVersion}")
+    testCompile("org.springframework:spring-test:${springVersion}")
+    testCompile("org.springframework.retry:spring-retry:1.2.2.RELEASE")
+    testCompile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.3.0-rc1'
+
+    testCompile group: 'org.json', name: 'json', version:"${jsonVersion}"
+
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version:"${lombokVersion}"
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version:"${lombokVersion}"
+}
+
+//task stagingSmokeTests() {
+//    dependsOn assemble, testClasses
+//    doLast {
+//        javaexec {
+//            main = "cucumber.api.cli.Main"
+//            classpath = configurations.testRuntime + sourceSets.test.output
+//            args = ['--plugin', 'pretty', '--glue', 'com.restAssuredTest.steps', 'src/test/resources/features']
+//        }
+//    }
+//}
